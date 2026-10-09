@@ -1,16 +1,20 @@
 from fastapi import FastAPI
 
+from app.core.config import get_settings
+
+settings = get_settings()
+
 app = FastAPI(
-    title="AI Job Research & Resume Agent",
-    version="0.1.0",
+    title=settings.app_name,
+    version=settings.app_version,
+    debug=settings.debug,
 )
 
-@app.get("/health")
+
+@app.get("/health", tags=["Health"])
 def health_check():
     return {
         "status": "healthy",
-        "service": "ai-job-research-agent",
-        "version": "0.1.0",
+        "service": settings.app_name,
+        "version": settings.app_version,
     }
-
-#test comment
